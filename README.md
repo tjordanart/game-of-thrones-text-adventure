@@ -83,7 +83,7 @@ This project demonstrates experience with:
 
 Clone this repository:
 
-git clone https://github.com/t-jordan1/Game-of-Thrones-Text-Game-python-.git
+git clone https://github.com/tjordanart/Game-of-Thrones-Text-Game-python-.git
 
 Run the game:
 
@@ -103,4 +103,4 @@ Software Engineering Student
 Southern New Hampshire University
 
 GitHub:
-https://github.com/t-jordan1
+https://github.com/tjordanart
