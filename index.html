@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game of Thrones - Text Adventure</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #0d0d0d;
+    color: #e6e6e6;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    padding: 30px 15px;
+    box-sizing: border-box;
+  }
+
+  #game {
+    width: 100%;
+    max-width: 850px;
+    background: #151515;
+    border: 1px solid #333;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+  }
+
+  #header {
+    text-align: center;
+    padding: 30px 20px 25px;
+    border-bottom: 1px solid #333;
+    background: #111;
+  }
+
+  #header h1 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f0f0f0;
+  }
+
+  #header p {
+    margin: 0;
+    color: #999;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  #content {
+    padding: 25px;
+  }
+
+  #location {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 8px;
+  }
+
+  #locationName {
+    margin: 0 0 20px;
+    font-size: 32px;
+    color: #fff;
+  }
+
+  #story {
+    min-height: 100px;
+    padding: 20px;
+    background: #0e0e0e;
+    border-left: 3px solid #555;
+    line-height: 1.7;
+    font-size: 17px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+  }
+
+  #status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .statusBox {
+    background: #101010;
+    border: 1px solid #292929;
+    padding: 16px;
+  }
+
+  .statusTitle {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #777;
+    margin-bottom: 8px;
+  }
+
+  #inventory {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #inventory.empty {
+    color: #666;
+    font-style: italic;
+  }
+
+  #itemArea {
+    display: none;
+    margin-bottom: 25px;
+    padding: 18px;
+    border: 1px solid #444;
+    background: #191919;
+  }
+
+  #itemArea.visible {
+    display: block;
+  }
+
+  #itemText {
+    margin-bottom: 12px;
+    color: #ccc;
+  }
+
+  #itemButton {
+    width: 100%;
+    padding: 13px;
+    background: #292929;
+    color: #fff;
+    border: 1px solid #555;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  #itemButton:hover {
+    background: #383838;
+    border-color: #777;
+  }
+
+  #controls {
+    margin-top: 10px;
+  }
+
+  .controlRow {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .directionButton {
+    min-width: 125px;
+    padding: 13px 18px;
+    background: #222;
+    color: #ddd;
+    border: 1px solid #444;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .directionButton:hover:not(:disabled) {
+    background: #353535;
+    border-color: #777;
+    color: #fff;
+  }
+
+  .directionButton:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
+  #bottomControls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #292929;
+  }
+
+  .bottomButton {
+    padding: 11px 25px;
+    background: transparent;
+    color: #888;
+    border: 1px solid #333;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .bottomButton:hover {
+    color: #fff;
+    border-color: #666;
+  }
+
+  #message {
+    min-height: 24px;
+    margin-top: 18px;
+    text-align: center;
+    color: #aaa;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+  }
+
+  #ending {
+    display: none;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 20px;
+    border: 1px solid #555;
+    background: #111;
+  }
+
+  #ending.visible {
+    display: block;
+  }
+
+  #endingTitle {
+    margin: 0 0 15px;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  #endingText {
+    margin: 0;
+    line-height: 1.7;
+    color: #bbb;
+  }
+
+  #restartButton {
+    margin-top: 22px;
+    padding: 13px 30px;
+    background: #292929;
+    border: 1px solid #555;
+    color: #fff;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #restartButton:hover {
+    background: #3a3a3a;
+  }
+
+
+  /* ==========================================
+     MOBILE LAYOUT
+     ========================================== */
+
+  @media (max-width: 600px) {
+
+    body {
+      padding: 0;
+      display: block;
+    }
+
+    #game {
+      width: 100%;
+      min-height: 0;
+      border: 0;
+      box-shadow: none;
+    }
+
+    #header {
+      padding: 10px 10px 8px;
+    }
+
+    #header h1 {
+      font-size: 18px;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+
+    #header p {
+      font-size: 10px;
+    }
+
+    #content {
+      padding: 9px;
+    }
+
+    #location {
+      font-size: 9px;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    #locationName {
+      font-size: 21px;
+      margin: 0 0 7px;
+    }
+
+    #story {
+      min-height: 0;
+      padding: 9px 11px;
+      margin-bottom: 7px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    #status {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+
+    .statusBox {
+      padding: 7px;
+    }
+
+    .statusTitle {
+      font-size: 8px;
+      letter-spacing: .8px;
+      margin-bottom: 3px;
+    }
+
+    #inventory {
+      font-size: 10px;
+      line-height: 1.25;
+    }
+
+    #itemArea {
+      margin-bottom: 7px;
+      padding: 8px;
+    }
+
+    #itemText {
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+
+    #itemButton {
+      padding: 8px;
+      font-size: 9px;
+    }
+
+    #controls {
+      margin-top: 3px;
+    }
+
+    .controlRow {
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .directionButton {
+      min-width: 0;
+      flex: 1;
+      padding: 9px 4px;
+      font-size: 9px;
+      letter-spacing: .5px;
+    }
+
+    #message {
+      min-height: 15px;
+      margin-top: 5px;
+      font-size: 10px;
+    }
+
+    #bottomControls {
+      margin-top: 5px;
+      padding-top: 5px;
+    }
+
+    .bottomButton {
+      padding: 7px 15px;
+      font-size: 9px;
+    }
+
+    #ending {
+      padding: 14px 10px;
+      margin-top: 7px;
+    }
+
+    #endingTitle {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    #endingText {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    #restartButton {
+      margin-top: 9px;
+      padding: 8px 18px;
+      font-size: 9px;
+    }
+  }
+
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+  <div id="header">
+    <h1>Game of Thrones</h1>
+    <p>Text Adventure</p>
+  </div>
+
+  <div id="content">
+
+    <div id="location">
+      Current Location
+    </div>
+
+    <h2 id="locationName">
+      Winterfell
+    </h2>
+
+    <div id="story">
+      You begin your journey in Winterfell. Explore Westeros, collect all six required items, and prepare for the Night King.
+    </div>
+
+
+    <div id="status">
+
+      <div class="statusBox">
+
+        <div class="statusTitle">
+          Inventory
+        </div>
+
+        <div id="inventory" class="empty">
+          Empty
+        </div>
+
+      </div>
+
+
+      <div class="statusBox">
+
+        <div class="statusTitle">
+          Objective
+        </div>
+
+        <div>
+          Collect all 6 items and reach Harrenhal.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div id="itemArea">
+
+      <div id="itemText"></div>
+
+      <button id="itemButton">
+        Pick Up Item
+      </button>
+
+    </div>
+
+
+    <div id="controls">
+
+      <div class="controlRow">
+
+        <button
+          class="directionButton"
+          id="northButton"
+          onclick="move('North')">
+          North
+        </button>
+
+      </div>
+
+
+      <div class="controlRow">
+
+        <button
+          class="directionButton"
+          id="westButton"
+          onclick="move('West')">
+          West
+        </button>
+
+        <button
+          class="directionButton"
+          id="southButton"
+          onclick="move('South')">
+          South
+        </button>
+
+        <button
+          class="directionButton"
+          id="eastButton"
+          onclick="move('East')">
+          East
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="message"></div>
+
+
+    <div id="ending">
+
+      <h2 id="endingTitle"></h2>
+
+      <p id="endingText"></p>
+
+      <button
+        id="restartButton"
+        onclick="restartGame()">
+        Play Again
+      </button>
+
+    </div>
+
+
+    <div id="bottomControls">
+
+      <button
+        class="bottomButton"
+        onclick="restartGame()">
+        Restart Game
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /*
+   * GAME OF THRONES - TEXT ADVENTURE
+   * JavaScript conversion of the original Python game
+   * Created by Tyler Jordan
+   */
+
+
+  const rooms = {
+
+    "Winterfell": {
+      South: "King's Landing",
+      West: "Riverrun",
+      East: "The Eyrie"
+    },
+
+    "Riverrun": {
+      East: "Winterfell",
+      item: "Direwolf Pelt"
+    },
+
+    "The Eyrie": {
+      West: "Winterfell",
+      item: "Raven Scroll"
+    },
+
+    "King's Landing": {
+      North: "Winterfell",
+      South: "Dragonstone",
+      item: "Iron Throne Key"
+    },
+
+    "Dragonstone": {
+      North: "King's Landing",
+      West: "Dorne",
+      East: "Essos Port",
+      South: "Harrenhal",
+      item: "Dragon Egg"
+    },
+
+    "Dorne": {
+      East: "Dragonstone",
+      item: "Sun Spear"
+    },
+
+    "Essos Port": {
+      West: "Dragonstone",
+      item: "Poison Vial"
+    },
+
+    "Harrenhal": {
+      North: "Dragonstone"
+    }
+
+  };
+
+
+  const allItems = [
+
+    "Direwolf Pelt",
+    "Raven Scroll",
+    "Iron Throne Key",
+    "Dragon Egg",
+    "Sun Spear",
+    "Poison Vial"
+
+  ];
+
+
+  const descriptions = {
+
+    "Winterfell":
+      "You stand within the cold walls of Winterfell. The journey ahead will take you across Westeros. Six items must be collected before you can face the Night King.",
+
+    "Riverrun":
+      "The waters of the Trident surround Riverrun. Search the area carefully; something valuable has been left here.",
+
+    "The Eyrie":
+      "High above the Vale stands the Eyrie. A message awaits you somewhere within its walls.",
+
+    "King's Landing":
+      "The capital of the Seven Kingdoms. Beneath the power and politics of the city lies an item that may be crucial to your quest.",
+
+    "Dragonstone":
+      "The ancient fortress of Dragonstone stands before you. From here, several paths across Westeros remain open.",
+
+    "Dorne":
+      "The sands of Dorne stretch before you. An ancient weapon awaits discovery.",
+
+    "Essos Port":
+      "Ships arrive from across the Narrow Sea. Among the cargo is something that could prove dangerous.",
+
+    "Harrenhal":
+      "The ruined walls of Harrenhal surround you. The air grows cold. The Night King is waiting."
+
+  };
+
+
+  let currentRoom = "Winterfell";
+
+  let inventory = [];
+
+  let gameOver = false;
+
+
+  function updateGame() {
+
+    const locationName =
+      document.getElementById("locationName");
+
+    const story =
+      document.getElementById("story");
+
+    const inventoryElement =
+      document.getElementById("inventory");
+
+    const itemArea =
+      document.getElementById("itemArea");
+
+    const itemText =
+      document.getElementById("itemText");
+
+
+    locationName.textContent =
+      currentRoom;
+
+
+    story.textContent =
+      descriptions[currentRoom];
+
+
+    /*
+     * Update inventory
+     */
+
+    if (inventory.length === 0) {
+
+      inventoryElement.textContent =
+        "Empty";
+
+      inventoryElement.classList.add("empty");
+
+    } else {
+
+      inventoryElement.textContent =
+        inventory.join(", ");
+
+      inventoryElement.classList.remove("empty");
+
+    }
+
+
+    /*
+     * Update item
+     */
+
+    if (
+      rooms[currentRoom].item &&
+      !gameOver
+    ) {
+
+      itemArea.classList.add("visible");
+
+      itemText.textContent =
+        "You see: " +
+        rooms[currentRoom].item;
+
+    } else {
+
+      itemArea.classList.remove("visible");
+
+    }
+
+
+    /*
+     * Update movement buttons
+     */
+
+    updateButton("northButton", "North");
+
+    updateButton("southButton", "South");
+
+    updateButton("eastButton", "East");
+
+    updateButton("westButton", "West");
+
+
+    /*
+     * Check Harrenhal
+     */
+
+    if (
+      currentRoom === "Harrenhal" &&
+      !gameOver
+    ) {
+
+      setTimeout(checkHarrenhal, 300);
+
+    }
+
+  }
+
+
+  function updateButton(
+    buttonId,
+    direction
+  ) {
+
+    const button =
+      document.getElementById(buttonId);
+
+
+    if (
+      rooms[currentRoom][direction]
+    ) {
+
+      button.disabled = false;
+
+    } else {
+
+      button.disabled = true;
+
+    }
+
+  }
+
+
+  function move(direction) {
+
+    if (gameOver) {
+      return;
+    }
+
+
+    if (
+      rooms[currentRoom][direction]
+    ) {
+
+      currentRoom =
+        rooms[currentRoom][direction];
+
+
+      document.getElementById("message")
+        .textContent =
+        "You moved to " +
+        currentRoom +
+        ".";
+
+
+      updateGame();
+
+    } else {
+
+      document.getElementById("message")
+        .textContent =
+        "You can't go that way.";
+
+    }
+
+  }
+
+
+  function pickUpItem() {
+
+    if (gameOver) {
+      return;
+    }
+
+
+    const item =
+      rooms[currentRoom].item;
+
+
+    if (!item) {
+
+      document.getElementById("message")
+        .textContent =
+        "There is no item here.";
+
+      return;
+
+    }
+
+
+    inventory.push(item);
+
+
+    delete rooms[currentRoom].item;
+
+
+    document.getElementById("message")
+      .textContent =
+      "You picked up: " +
+      item +
+      ".";
+
+
+    updateGame();
+
+  }
+
+
+  function checkHarrenhal() {
+
+    if (gameOver) {
+      return;
+    }
+
+
+    gameOver = true;
+
+
+    document.getElementById("itemArea")
+      .classList.remove("visible");
+
+
+    document.getElementById("northButton")
+      .disabled = true;
+
+    document.getElementById("southButton")
+      .disabled = true;
+
+    document.getElementById("eastButton")
+      .disabled = true;
+
+    document.getElementById("westButton")
+      .disabled = true;
+
+
+    const ending =
+      document.getElementById("ending");
+
+    const endingTitle =
+      document.getElementById("endingTitle");
+
+    const endingText =
+      document.getElementById("endingText");
+
+
+    ending.classList.add("visible");
+
+
+    if (
+      inventory.length ===
+      allItems.length
+    ) {
+
+      endingTitle.textContent =
+        "Victory";
+
+
+      endingText.textContent =
+        "You have collected all six required items. You face the Night King prepared and defeat him. Congratulations! You have won the game.";
+
+    } else {
+
+      endingTitle.textContent =
+        "Game Over";
+
+
+      endingText.textContent =
+        "The Night King catches you unprepared. You did not collect all six required items before entering Harrenhal. You have been defeated.";
+
+    }
+
+  }
+
+
+  function restartGame() {
+
+    /*
+     * Restore all items.
+     */
+
+    rooms["Riverrun"].item =
+      "Direwolf Pelt";
+
+    rooms["The Eyrie"].item =
+      "Raven Scroll";
+
+    rooms["King's Landing"].item =
+      "Iron Throne Key";
+
+    rooms["Dragonstone"].item =
+      "Dragon Egg";
+
+    rooms["Dorne"].item =
+      "Sun Spear";
+
+    rooms["Essos Port"].item =
+      "Poison Vial";
+
+
+    currentRoom =
+      "Winterfell";
+
+
+    inventory = [];
+
+
+    gameOver = false;
+
+
+    document.getElementById("ending")
+      .classList.remove("visible");
+
+
+    document.getElementById("message")
+      .textContent =
+      "The journey begins in Winterfell.";
+
+
+    updateGame();
+
+  }
+
+
+  /*
+   * Connect item button.
+   */
+
+  document.getElementById("itemButton")
+    .addEventListener(
+      "click",
+      pickUpItem
+    );
+
+
+  /*
+   * Start game.
+   */
+
+  updateGame();
+
+</script>
+
+</body>
+</html>
