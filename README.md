@@ -1,42 +1,57 @@
 # Game of Thrones - Text Adventure
 
+A Python-based console adventure game inspired by the world of Westeros.
+
+Explore dangerous locations, collect six important items, and prepare for a final battle against the Night King.
+
+**Play the game:** [tjordanart.com/got-text-game](https://www.tjordanart.com/got-text-game)
+
 ## Overview
 
-Game of Thrones - Text Adventure is a Python-based console adventure game created as my final project during my second term in the Software Engineering program at Southern New Hampshire University (SNHU).
+Game of Thrones - Text Adventure is an interactive command-line game created as a programming project during my studies at Southern New Hampshire University.
 
-The player must explore Westeros, collect six important items, and prepare for a final battle against the Night King. Enter Harrenhal without all the required items, and the player will face defeat!
+The player must explore Westeros, collect six required items, and make their way to Harrenhal for the final battle.
 
-This project was created to practice Python programming fundamentals, including functions, dictionaries, loops, conditional logic, and user input handling.
+Arriving at Harrenhal without all six items results in defeat.
+
+The project focuses on Python fundamentals including functions, dictionaries, loops, conditional logic, and user input.
 
 ## How to Play
 
-The goal of the game is to:
+The objective is to:
 
-1. Explore different locations across Westeros
+1. Explore locations throughout Westeros
 2. Collect all six required items
-3. Travel to Harrenhal
-4. Face the Night King and defeat him
+3. Prepare for the final battle
+4. Travel to Harrenhal
+5. Defeat the Night King
 
 ## Commands
 
-Movement:
+### Movement
 
-go North  
-go South  
-go East  
-go West  
+```text
+go North
+go South
+go East
+go West
+```
 
-Collect items:
+### Collect Items
 
+```text
 get item
+```
 
-Exit the game:
+### Exit
 
+```text
 exit
+```
 
 ## Locations
 
-Explore locations throughout Westeros:
+Players can explore multiple locations throughout Westeros:
 
 - Winterfell
 - King's Landing
@@ -49,7 +64,7 @@ Explore locations throughout Westeros:
 
 ## Items to Collect
 
-Collect all six items before facing the Night King:
+Six items must be collected before facing the Night King:
 
 - Direwolf Pelt
 - Raven Scroll
@@ -58,49 +73,79 @@ Collect all six items before facing the Night King:
 - Sun Spear
 - Poison Vial
 
-## Technologies Used
+## Game Mechanics
 
-- Python 3
-- Console-based application
+The game uses a text-based command system to allow the player to navigate between locations and interact with the game world.
+
+The player's inventory is tracked throughout the adventure, and the final outcome depends on whether all required items have been collected before entering Harrenhal.
+
+## Technologies & Concepts
+
+- **Python 3**
 - Dictionaries
 - Functions
 - Loops
 - Conditional logic
-- User input handling
-
-## Skills Demonstrated
-
-This project demonstrates experience with:
-
-- Python programming fundamentals
+- User input
 - Data structures
-- Control flow and decision-making
-- User interaction design
-- Debugging and problem-solving
-- Creating interactive command-line applications
+- Command-line interfaces
+- Game-state management
 
 ## How to Run
 
-Clone this repository:
+### Requirements
 
+- Python 3
+- No external dependencies
+
+### Clone the Repository
+
+```bash
 git clone https://github.com/tjordanart/Game-of-Thrones-Text-Game-python-.git
+```
 
-Run the game:
+### Navigate to the Project
 
+```bash
+cd Game-of-Thrones-Text-Game-python-
+```
+
+### Run the Game
+
+```bash
 python TextBasedGame-TJ.py
+```
+
+Follow the on-screen prompts to explore the game world and collect the required items.
 
 ## Project Background
 
-This project was created as part of my Software Engineering coursework at Southern New Hampshire University.
+This project was created as an early programming project during my studies at Southern New Hampshire University.
 
-It represents an early milestone in my programming journey and helped build a foundation in software development concepts that I continue expanding through future projects.
+It provided hands-on practice with Python fundamentals, data structures, control flow, user interaction, and building a complete command-line application.
+
+The project also became a foundation for exploring how a traditional Python console game can be presented as an interactive web experience.
+
+## What I Practiced
+
+This project gave me experience with:
+
+- Python programming fundamentals
+- Functions
+- Dictionaries and data structures
+- Loops
+- Conditional statements
+- User input
+- Game-state management
+- Command-line interfaces
+- Debugging and problem-solving
+- Building an interactive application from the ground up
 
 ## Author
 
-Tyler Jordan
+**Tyler Jordan**
 
-Software Engineering Student  
-Southern New Hampshire University
+Computer Engineering Student & Creative Technologist
 
-GitHub:
-https://github.com/tjordanart
+[GitHub](https://github.com/Tjordanart)  
+[Portfolio](https://www.tjordanart.com)
