@@ -1,34 +1,33 @@
-# Game of Thrones - Text Adventure
+# Game of Thrones — Text Adventure
 
-A Python-based console adventure game inspired by the world of Westeros.
+**Academic Project · SNHU · IT-140: Introduction to Scripting**
 
-Explore dangerous locations, collect six important items, and prepare for a final battle against the Night King.
+A Python-based text adventure inspired by the world of Westeros, featuring location-based exploration, inventory collection, and a final battle against the Night King.
 
-**Play the game:** [tjordanart.com/got-text-game](https://www.tjordanart.com/got-text-game)
+**Play the Game:** [Try the interactive web version](https://www.tjordanart.com/got-text-game)
 
 ## Overview
 
-Game of Thrones - Text Adventure is an interactive command-line game created as a programming project during my studies at Southern New Hampshire University.
+Game of Thrones — Text Adventure is a command-line adventure game created for IT-140: Introduction to Scripting at Southern New Hampshire University.
 
-The player must explore Westeros, collect six required items, and make their way to Harrenhal for the final battle.
+Players explore locations throughout Westeros, collect six required items, and travel to Harrenhal for a final encounter with the Night King. The player's inventory determines whether they are prepared for the final battle.
 
-Arriving at Harrenhal without all six items results in defeat.
-
-The project focuses on Python fundamentals including functions, dictionaries, loops, conditional logic, and user input.
+The project applies Python fundamentals to a playable game, including functions, dictionaries, loops, conditional logic, user input, and game-state management.
 
 ## How to Play
 
 The objective is to:
 
-1. Explore locations throughout Westeros
-2. Collect all six required items
-3. Prepare for the final battle
-4. Travel to Harrenhal
-5. Defeat the Night King
+1. Explore locations throughout Westeros.
+2. Collect all six required items.
+3. Navigate to Harrenhal.
+4. Face the Night King with the required items.
+
+Arriving at Harrenhal without all six items results in defeat.
 
 ## Commands
 
-### Movement
+**Movement**
 
 ```text
 go North
@@ -37,13 +36,13 @@ go East
 go West
 ```
 
-### Collect Items
+**Collect an item**
 
 ```text
 get item
 ```
 
-### Exit
+**Exit the game**
 
 ```text
 exit
@@ -51,7 +50,7 @@ exit
 
 ## Locations
 
-Players can explore multiple locations throughout Westeros:
+Explore locations across Westeros and beyond:
 
 - Winterfell
 - King's Landing
@@ -64,7 +63,7 @@ Players can explore multiple locations throughout Westeros:
 
 ## Items to Collect
 
-Six items must be collected before facing the Night King:
+Collect all six items before the final battle:
 
 - Direwolf Pelt
 - Raven Scroll
@@ -75,77 +74,45 @@ Six items must be collected before facing the Night King:
 
 ## Game Mechanics
 
-The game uses a text-based command system to allow the player to navigate between locations and interact with the game world.
+- **Location-based movement:** Navigate the game world using text commands.
+- **Inventory management:** Collect and track required items.
+- **Command processing:** Interpret player input to determine actions.
+- **Game-state management:** Track progress toward the final encounter.
+- **Win and lose conditions:** Determine the outcome based on inventory requirements.
 
-The player's inventory is tracked throughout the adventure, and the final outcome depends on whether all required items have been collected before entering Harrenhal.
-
-## Technologies & Concepts
+## Technology
 
 - **Python 3**
-- Dictionaries
-- Functions
-- Loops
-- Conditional logic
-- User input
-- Data structures
-- Command-line interfaces
-- Game-state management
+- **Dictionaries and data structures** — Represent locations and inventory
+- **Functions** — Organize game behavior
+- **Loops and conditional logic** — Control gameplay and evaluate player actions
+- **User input** — Process commands and player decisions
+- **Command-line interface** — Deliver the interactive experience
 
-## How to Run
+## How to Run Locally
 
-### Requirements
+**Requirements:** Python 3. No external dependencies.
 
-- Python 3
-- No external dependencies
-
-### Clone the Repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/tjordanart/Game-of-Thrones-Text-Game-python-.git
 ```
 
-### Navigate to the Project
+Navigate to the project folder:
 
 ```bash
 cd Game-of-Thrones-Text-Game-python-
 ```
 
-### Run the Game
+Run the game:
 
 ```bash
 python TextBasedGame-TJ.py
 ```
 
-Follow the on-screen prompts to explore the game world and collect the required items.
+Follow the prompts to explore the world and collect the required items.
 
 ## Project Background
 
-This project was created as an early programming project during my studies at Southern New Hampshire University.
-
-It provided hands-on practice with Python fundamentals, data structures, control flow, user interaction, and building a complete command-line application.
-
-The project also became a foundation for exploring how a traditional Python console game can be presented as an interactive web experience.
-
-## What I Practiced
-
-This project gave me experience with:
-
-- Python programming fundamentals
-- Functions
-- Dictionaries and data structures
-- Loops
-- Conditional statements
-- User input
-- Game-state management
-- Command-line interfaces
-- Debugging and problem-solving
-- Building an interactive application from the ground up
-
-## Author
-
-**Tyler Jordan**
-
-Computer Engineering Student & Creative Technologist
-
-[GitHub](https://github.com/Tjordanart)  
-[Portfolio](https://www.tjordanart.com)
+This
